@@ -14,7 +14,7 @@ namespace House
         static void Main(string[] args)
         {
             Game game = new Game();
-            game.Aids();
+            game.Print();
             Console.ReadLine();
 
         }
@@ -29,7 +29,7 @@ namespace House
 
         }
 
-        public void Aids()
+        public void Print()
         {
             market.PrintProperties();
 

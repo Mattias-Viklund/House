@@ -40,7 +40,7 @@ namespace House
 
             for (int i = 0; i < apartments; i++)
             {
-                Apartment apartment = new Apartment(random.Next(10) * marketRate);
+                Apartment apartment = new Apartment(random.Next(1, 20) * marketRate);
                 Certificate certificate = new Certificate(apartment);
                 certificates.Add(certificate);
 
@@ -48,20 +48,20 @@ namespace House
 
             for (int i = 0; i < stores; i++)
             {
-                Store store = new Store(random.Next(10) * marketRate);
+                Store store = new Store(random.Next(1, 20) * marketRate);
                 Certificate certificate = new Certificate(store);
                 certificates.Add(certificate);
 
             }
         }
 
-        public void Sell()
+        public void Sell(Certificate property)
         {
 
 
         }
 
-        public void Buy()
+        public void Buy(Certificate property)
         {
 
 
