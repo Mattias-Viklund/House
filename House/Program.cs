@@ -13,7 +13,25 @@ namespace House
     {
         static void Main(string[] args)
         {
-            
+            Game game = new Game();
+            game.Aids();
+            Console.ReadLine();
+
+        }
+    }
+
+    class Game
+    {
+        private Market market = new Market();
+
+        public Game()
+        {
+
+        }
+
+        public void Aids()
+        {
+            market.PrintProperties();
 
         }
     }
@@ -24,7 +42,6 @@ namespace House
             : base(name)
         {
 
-
         }
     }
 
@@ -33,66 +50,25 @@ namespace House
 
     }
 
-    class Market
+    class Available : Owner
     {
-        private List<Certificate> certificates = new List<Certificate>();
-
-    }
-
-    struct Certificate
-    {
-        public readonly Owner Owner;
-        public readonly Building Property;
-
-        public Certificate(Owner owner, Building property)
+        public Available()
+            : base("Available")
         {
-            this.Owner = owner;
-            this.Property = property;
 
         }
-    }
-
-    abstract class Owner
-    {
-        private string name;
-        private int money;
-
-        public Owner(string name)
-        {
-            this.name = name;
-
-        }
-
-        public Owner()
-        {
-            this.name = GetRandomName();
-
-        }
-
-
-        #region Random Name
-        private static string[] nameList =
-        {
-            "Jeff", "Mark", "Steve", "Brian", "Dude",
-            "Cool Dude", "Mr. Spielberg", "Stanley",
-            "Voldemort", "Gandalf", "Tyrone"
-
-        };
-
-        public static string GetRandomName()
-        {
-            Random rng = new Random();
-            return nameList[rng.Next(nameList.Length-1)];
-
-        }
-        #endregion
-
     }
 
     class Store : Building
     {
-        public Store(string name, int value) 
-            : base(name, value)
+        public Store(string name, float value)
+            : base(name, value, "Store")
+        {
+
+        }
+
+        public Store(float value)
+            : base(value, "Store")
         {
 
         }
@@ -100,58 +76,29 @@ namespace House
 
     class House : Building
     {
-        public House(string name, int value) 
-            : base(name, value)
-        {
-
-        }
-    }
-
-    abstract class Building
-    {
-        protected string name;
-        protected int value;
-
-        public Building(string name, int value)
+        public House(string name, float value)
+            : base(name, value, "House")
         {
 
         }
 
-        public building
-
-        private void TransferOwnership()
+        public House(float value)
+            : base(value, "House")
         {
-
-        }
-
-        public int GetMarketValue()
-        {
-            return value;
-
-        }
-
-        public void Purchase()
-        {
-
-
-        }
-
-        public void Sell()
-        {
-
 
         }
     }
 
     class Apartment : Building
     {
-        public Apartment(string name, int value) 
-            : base(name, value)
+        public Apartment(string name, float value)
+            : base(name, value, "Apartment")
         {
 
         }
 
-        public void Aids()
+        public Apartment(float value)
+            : base(value, "Apartment")
         {
 
         }
