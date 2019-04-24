@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace House
 {
@@ -17,11 +18,46 @@ namespace House
 
         }
 
-        public void PrintProperties()
+        public List<Certificate> OwnedProperties(Owner owner)
         {
+            var c = from cert in certificates where cert.Owner == owner select cert;
+            return c.ToList();
+
+        }
+
+        public float Value(List<Certificate> certificates)
+        {
+            float value = 0f;
             foreach (Certificate certificate in certificates)
             {
-                Console.WriteLine(certificate.Property.GetPrefix()+" at "+certificate.Property.GetName() + ", Value " + certificate.Property.GetMarketValue()+"m");
+                value += certificate.Property.GetMarketValue();
+
+            }
+            return value;
+
+        }
+
+        public void ListOwnedProperties(Owner owner)
+        {
+            var c = from cert in certificates where cert.Owned == true select cert;
+            foreach (Certificate certificate in c)
+            {
+                Console.WriteLine(certificate.Property.GetPrefix() + " at " +
+                    certificate.Property.GetName() + ", Value " +
+                    certificate.Property.GetMarketValue() + "m Owned by " +
+                    certificate.Owner.GetName());
+
+            }
+        }
+
+        public void ListMarket()
+        {
+            var c = from cert in certificates where cert.Owned == false select cert;
+            foreach (Certificate certificate in c)
+            {
+                Console.WriteLine(certificate.Property.GetPrefix() + " at " +
+                    certificate.Property.GetName() + ", Value " +
+                    certificate.Property.GetMarketValue() + "m Available");
 
             }
         }
@@ -55,15 +91,21 @@ namespace House
             }
         }
 
-        public void Sell(Certificate property)
+        public void Sell(ref Owner owner, Certificate property)
         {
-
+            owner.AddMoney(property.Property.GetMarketValue());
+            property.SellCertificate();
 
         }
 
-        public void Buy(Certificate property)
+        public bool Buy(ref Owner owner, Certificate property)
         {
+            if (owner.GetMoney() < property.Property.GetMarketValue())
+                return false;
 
+            owner.AddMoney(-property.Property.GetMarketValue());
+            property.TransferCertificate(owner);
+            return true;
 
         }
     }

@@ -17,10 +17,17 @@ namespace House
 
         }
 
+        public void SellCertificate()
+        {
+            this.Owner = null;
+            this.Owned = false;
+
+        }
+
         public void TransferCertificate(Owner newOwner)
         {
-            this.Owned = newOwner.GetName() == "Available" ? false : true;
             this.Owner = newOwner;
+            this.Owned = true;
 
         }
     }

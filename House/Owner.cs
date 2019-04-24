@@ -8,11 +8,12 @@ namespace House
     abstract class Owner
     {
         private string name;
-        private int money;
+        private float money;
 
         public Owner(string name)
         {
             this.name = name;
+            this.money = 50.0f;
 
         }
 
@@ -25,6 +26,18 @@ namespace House
         public string GetName()
         {
             return name;
+
+        }
+
+        public float GetMoney()
+        {
+            return money;
+
+        }
+
+        public void AddMoney(float amount)
+        {
+            this.money += amount;
 
         }
 

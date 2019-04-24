@@ -14,8 +14,7 @@ namespace House
         static void Main(string[] args)
         {
             Game game = new Game();
-            game.Print();
-            Console.ReadLine();
+            game.Start();
 
         }
     }
@@ -23,15 +22,49 @@ namespace House
     class Game
     {
         private Market market = new Market();
+        private Player player;
 
         public Game()
         {
+            Console.WriteLine("Enter your name.");
+            player = new Player(Util.ReadConfirm("Will be your name."));
 
         }
 
-        public void Print()
+        public void Start()
         {
-            market.PrintProperties();
+            while (true)
+            {
+                Cycle();
+
+            }
+        }
+
+        private void Cycle()
+        {
+            Console.Clear();
+            Console.WriteLine("-- House Broker --");
+            Console.WriteLine();
+            Console.WriteLine("-Player "+player.GetName());
+            Console.WriteLine(" Money: " + player.GetMoney()+"m");
+            Console.WriteLine(" Properties: "+market.OwnedProperties(player).Count);
+            Console.WriteLine(" Total Value: " + market.Value(market.OwnedProperties(player)));
+            Console.WriteLine();
+            Console.WriteLine("- Options -");
+
+            Util.ReadInt();
+
+        }
+
+        private void Sell()
+        {
+
+
+        }
+
+        private void Buy()
+        {
+
 
         }
     }
