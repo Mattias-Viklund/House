@@ -26,8 +26,15 @@ namespace House
 
         public Game()
         {
-            Console.WriteLine("Enter your name.");
-            player = new Player(Util.ReadConfirm("Will be your name."));
+            Setup();
+            player = new Player(Util.ReadConfirm("Enter your name.","Will be your name."));
+
+        }
+
+        private void Setup()
+        {
+            Console.ForegroundColor = Util.CONSOLE_FG;
+            Console.BackgroundColor = Util.CONSOLE_BG;
 
         }
 
@@ -51,9 +58,21 @@ namespace House
             Console.WriteLine(" Total Value: " + market.Value(market.OwnedProperties(player)));
             Console.WriteLine();
             Console.WriteLine("- Options -");
+            Console.WriteLine(" 1) View Property Listings");
+            Console.WriteLine(" 2) View Owner Properites");
+            Console.WriteLine(" 3) Train Skills");
+            Console.WriteLine();
+            Console.WriteLine("Q) Quit");
 
-            Util.ReadInt();
+            int choice = Util.ReadInt();
 
+            switch (choice)
+            {
+                case 1: market.ListMarket(); break;
+                case 2: market.ListOwnedProperties(player); break;
+                case 3: break;
+
+            }
         }
 
         private void Sell()

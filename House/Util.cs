@@ -8,6 +8,9 @@ namespace House
 {
     class Util
     {
+        public static ConsoleColor CONSOLE_FG = ConsoleColor.White;
+        public static ConsoleColor CONSOLE_BG = ConsoleColor.Black;
+
         public static int ReadInt(char prefix = '>')
         {
             Console.Write(prefix);
@@ -25,13 +28,14 @@ namespace House
 
         }
 
-        public static string ReadConfirm(string message, char prefix = '>')
+        public static string ReadConfirm(string question, string message, char prefix = '>')
         {
+            Console.WriteLine(question);
             Console.Write(prefix);
             string input = Console.ReadLine();
 
             if (input.Length == 0)
-                return ReadConfirm(message);
+                return ReadConfirm(question, message);
 
             Console.WriteLine("'"+input+"' "+message);
             Console.WriteLine("Are you sure? [Y/N]");
@@ -41,7 +45,7 @@ namespace House
             if (confirm[0] == 'y')
                 return input;
 
-            return ReadConfirm(message);
+            return ReadConfirm(question, message);
 
         }
 
@@ -50,6 +54,42 @@ namespace House
             Console.Write(prefix);
             string input = Console.ReadLine();
             return input;
+
+        }
+
+        public static void ColorText(params TextOption[] options)
+        {
+            foreach (TextOption option in options)
+            {
+                Console.ForegroundColor = option.fg_color;
+                Console.BackgroundColor = option.bg_color;
+                Console.Write(option.text);
+
+            }
+            Console.ForegroundColor = CONSOLE_FG;
+            Console.BackgroundColor = CONSOLE_BG;
+            Console.Write("\n");
+
+        }
+    }
+
+    struct TextOption
+    {
+        public string text;
+        public ConsoleColor fg_color;
+        public ConsoleColor bg_color;
+
+        public TextOption(string text, ConsoleColor fg_color = ConsoleColor.White, ConsoleColor bg_color = ConsoleColor.Black)
+        {
+            this.text = text;
+            this.fg_color = fg_color;
+            this.bg_color = bg_color;
+
+        }
+
+        public static implicit operator TextOption(string s)
+        {
+            return new TextOption(s);
 
         }
     }

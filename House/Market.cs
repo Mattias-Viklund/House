@@ -42,12 +42,14 @@ namespace House
             var c = from cert in certificates where cert.Owned == true select cert;
             foreach (Certificate certificate in c)
             {
-                Console.WriteLine(certificate.Property.GetPrefix() + " at " +
+                Util.ColorText(certificate.Property.GetPrefix() + " at " +
                     certificate.Property.GetName() + ", Value " +
-                    certificate.Property.GetMarketValue() + "m Owned by " +
-                    certificate.Owner.GetName());
+                    certificate.Property.GetMarketValue() + "m Owned by ",
+                    new TextOption(certificate.Owner.GetName(), ConsoleColor.Yellow));
 
             }
+            Console.ReadLine();
+
         }
 
         public void ListMarket()
@@ -55,11 +57,13 @@ namespace House
             var c = from cert in certificates where cert.Owned == false select cert;
             foreach (Certificate certificate in c)
             {
-                Console.WriteLine(certificate.Property.GetPrefix() + " at " +
+                Util.ColorText(certificate.Property.GetPrefix() + " at " +
                     certificate.Property.GetName() + ", Value " +
-                    certificate.Property.GetMarketValue() + "m Available");
+                    certificate.Property.GetMarketValue() + "m ", new TextOption("Available", ConsoleColor.Green));
 
             }
+            Console.ReadLine();
+
         }
 
         private void GenerateProperties(int houses, int apartments, int stores)
